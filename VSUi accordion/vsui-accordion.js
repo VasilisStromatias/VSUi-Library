@@ -6,6 +6,7 @@
         initContentClass: "vsui-accordion-content",
         headerElement: "h3",
         contentElement: "div",
+        opened: false,
       },
       options
     );
@@ -15,13 +16,23 @@
       var header = container.children(settings.headerElement);
       var content = container.children(settings.contentElement);
 
-      header.addClass(settings.headerClasses);
-      content.addClass(settings.contentClasses);
+      //initial classes
       header.addClass(settings.initHeaderClass);
       content.addClass(settings.initContentClass);
+      //classes that the user adds
+      header.addClass(settings.headerClasses);
+      content.addClass(settings.contentClasses);
+
+      content.hide(); //hide all contents
+
+      if (settings.opened !== false) {
+        content.eq(settings.opened).show();
+        content.eq(settings.opened).addClass("open");
+      }
 
       header.click(function () {
-        $(this).next(settings.contentElement).toggleClass("open");
+        $(this).toggleClass("active");
+        $(this).next(settings.contentElement).toggleClass("open").slideToggle();
       });
     });
   };

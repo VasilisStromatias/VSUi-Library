@@ -18,10 +18,8 @@
 }
 
 .vsui-accordion-content {
-  margin-bottom: 30px;
-  padding: 10px 20px;
-  display: none;
+  padding-inline: 20px;
   &.open {
-    display: block;
+    margin-bottom: 20px;
   }
 }

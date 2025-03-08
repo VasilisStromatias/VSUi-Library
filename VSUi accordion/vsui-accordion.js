@@ -7,6 +7,7 @@
         headerElement: "h3",
         contentElement: "div",
         opened: false,
+        alwaysOneOpen: false,
       },
       options
     );
@@ -25,12 +26,26 @@
 
       content.hide(); //hide all contents
 
+      //user selects which accordion wants to be initally opened
       if (settings.opened !== false) {
         content.eq(settings.opened).show();
         content.eq(settings.opened).addClass("open");
       }
 
       header.click(function () {
+        if (settings.alwaysOneOpen) {
+          let openContent = $(settings.contentElement + ".open");
+          if (
+            openContent.length &&
+            !$(this).next(settings.contentElement).hasClass("open")
+          ) {
+            openContent.removeClass("open").slideUp();
+          }
+
+          header.removeClass("active");
+          content.removeClass("open");
+        }
+
         $(this).toggleClass("active");
         $(this).next(settings.contentElement).toggleClass("open").slideToggle();
       });
